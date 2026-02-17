@@ -9,3 +9,10 @@ Storage: local encrypted database (pluggable backend)
 Search: full-text + tag filters
 Config: user profile + key management
 Future: OpenClaw skill integration via command wrappers
+
+## Implementation (brief)
+- Language: Go or TypeScript
+- CLI framework: Cobra (Go) or Commander (TS)
+- Storage: local encrypted SQLite by default; optional Supabase backend later
+- Search: SQLite FTS for local; SQL + tags for remote
+- Config: user profile + encryption keys in a local config file
