@@ -16,3 +16,25 @@ Future: OpenClaw skill integration via command wrappers
 - Storage: local encrypted SQLite by default; optional Supabase backend later
 - Search: SQLite FTS for local; SQL + tags for remote
 - Config: user profile + encryption keys in a local config file
+
+## Data Flow & Storage Strategy
+
+**Raw ingestion (immediate):**
+- `memarc add <text>` stores full entry with timestamp as single indexed record
+- No processing or breakdown at write time
+- Enables fast, offline capture
+
+**Batch processing (scheduled):**
+- Daily/weekly job extracts metadata: dates, names, keywords, amounts
+- Auto-tags based on content analysis (birthdays, deadlines, tasks, etc.)
+- Populates structured `metadata` table while keeping raw `content` intact
+- Full-text search indexed for retrieval
+
+**Retrieval:**
+- Search across raw content + tags + extracted metadata
+- Filter by type, tags, date range, or keyword
+- Export preserves both raw and structured data
+
+**Storage backends:**
+- Local: SQLite (raw + FTS indexes)
+- Remote (future): Supabase sync with client-side encryption
