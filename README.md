@@ -101,7 +101,7 @@ Responsibilities:
 - Example: `memarc add "text" --type personal --tags birthday,important`
 
 **list.go** — Handler for `memarc list`
-- Fetches all entries from database
+- Fetches entries from database (optionally filtered by date via `--date YYYY-MM-DD`)
 - Formats output with ID, timestamp, type, truncated content, tags
 - Returns error if no entries exist
 
