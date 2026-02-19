@@ -47,6 +47,13 @@ func (d *DB) ListEntries() ([]models.Entry, error) {
 	return entries, err
 }
 
+// ListEntriesByDate retrieves entries for a specific date (YYYY-MM-DD)
+func (d *DB) ListEntriesByDate(date string) ([]models.Entry, error) {
+	var entries []models.Entry
+	err := d.Where("DATE(created_at) = ?", date).Find(&entries).Error
+	return entries, err
+}
+
 // GetEntry retrieves a single entry by ID
 func (d *DB) GetEntry(id uint) (*models.Entry, error) {
 	var entry models.Entry

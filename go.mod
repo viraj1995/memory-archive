@@ -1,4 +1,4 @@
-module github.com/yourusername/memarc
+module github.com/viraj1995/memarc
 
 go 1.21
 

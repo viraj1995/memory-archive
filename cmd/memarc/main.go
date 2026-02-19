@@ -60,14 +60,16 @@ func addCmd() *cobra.Command {
 }
 
 func listCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "list",
-		Short: "List all memory entries",
-		Long:  "Display all stored memory entries with timestamps",
+		Short: "List memory entries",
+		Long:  "Display stored memory entries, optionally filtered by date",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return cli.List(db)
+			return cli.List(db, cmd, args)
 		},
 	}
+	cmd.Flags().StringP("date", "d", "", "filter by date (YYYY-MM-DD)")
+	return cmd
 }
 
 func main() {

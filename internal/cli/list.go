@@ -5,11 +5,22 @@ import (
 	"strings"
 
 	"github.com/yourusername/memarc/internal/storage"
+	"github.com/spf13/cobra"
 )
 
-// List displays all memory entries
-func List(db *storage.DB) error {
-	entries, err := db.ListEntries()
+// List displays memory entries, optionally filtered by date
+func List(db *storage.DB, cmd *cobra.Command, args []string) error {
+	date, _ := cmd.Flags().GetString("date")
+	
+	var entries []models.Entry
+	var err error
+	
+	if date != "" {
+		entries, err = db.ListEntriesByDate(date)
+	} else {
+		entries, err = db.ListEntries()
+	}
+	
 	if err != nil {
 		return fmt.Errorf("failed to retrieve entries: %w", err)
 	}
